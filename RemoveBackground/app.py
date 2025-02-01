@@ -1,17 +1,15 @@
-from ipaddress import v4_int_to_packed
-from re import S
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QFileDialog, QVBoxLayout
 from rembg import remove
 from PIL import Image
 import io
 
-class BackgroundRemoverApp(QWidget):
+class BackgroundRemoverApp(QWidget): 
     def __init__(self):
         super().__init__()
-    self.initUI()
+        self.initUI()
 
-    def __initUI(self):
+    def initUI(self):
         self.setWindowTitle("BGAway")
         self.setGeometry(100, 100, 400, 200)
 
@@ -39,7 +37,7 @@ class BackgroundRemoverApp(QWidget):
 
     def removeBackground(self):
         if self.image_path:
-            inpput_image = Image.open(self.image_path)
+            input_image = Image.open(self.image_path)
             output_image = remove(input_image)
 
             save_path, _ =  QFileDialog.getSaveFileName(self, "Save under", "output.png","PNG-file (*.png)")
@@ -48,8 +46,8 @@ class BackgroundRemoverApp(QWidget):
                 self.label.setText("Background removed and image saved!")
 
 
-    if __name__ == "__main__":
-        app = QApplication(sys.argv)
-        window = BGAway()
-        window.show()
-        sys.exit(app.exec())        
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = BackgroundRemoverApp()  
+    window.show()
+    sys.exit(app.exec())    
