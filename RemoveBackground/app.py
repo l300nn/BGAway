@@ -1,22 +1,25 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QFileDialog, QVBoxLayout
-from rembg import remove
-from PIL import Image
-import io
+﻿import sys
 import subprocess
+import importlib.util
 
+# 🔹 Liste der erforderlichen Pakete
 required_packages = ["rembg", "PyQt6", "Pillow", "onnxruntime"]
 
 def install_missing_packages():
     for package in required_packages:
-        try:
-            __import__(package)
-        except ImportError:
+        if importlib.util.find_spec(package) is None:  # Prüfen, ob Modul installiert ist
             print(f"{package} not found, installing")
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+            print(f"{package} sucessfully installed!")
 
-# Installiere fehlende Pakete
+# 🔹 Fehlende Pakete installieren
 install_missing_packages()
+
+# 🔹 Jetzt die installierten Module importieren
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QFileDialog, QVBoxLayout
+from rembg import remove
+from PIL import Image
+import onnxruntime  
 
 
 class BackgroundRemoverApp(QWidget): 
