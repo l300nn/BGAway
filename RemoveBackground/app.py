@@ -3,6 +3,18 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QFileDia
 from rembg import remove
 from PIL import Image
 import io
+import sys
+import subprocess
+
+required_packages = ["rembg", "PyQt6", "Pillow"]
+
+def install_missing_packages():
+    for package in required_packages:
+        try:
+            __import__(package)
+        except ImportError:
+            print(f"{package} nicht gefunden. Installiere...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 class BackgroundRemoverApp(QWidget): 
     def __init__(self):
